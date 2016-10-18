@@ -10,7 +10,7 @@
             Pessoas envolvidas: {{p.members}}
           </div>
           <div class="mdl-card__actions mdl-card--border">
-            <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect">Abrir</a>
+            <router-link :to="'/parceria/' + p.id" class="mdl-button mdl-js-button mdl-js-ripple-effect">Abrir</router-link>
           </div>
         </div>
       </div>

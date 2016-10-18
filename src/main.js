@@ -10,7 +10,11 @@ import Parceria from './views/Parceria.vue'
 
 const routes = [
   { path: '/', component: Home },
-  { path: '/parceria/:id', component: Parceria },
+  { path: '/parceria/:id', component: Parceria,
+    children: [
+      {path: ':part'}
+    ]
+  },
   { path: '*', redirect: '/' }
 ]
 

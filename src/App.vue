@@ -34,11 +34,11 @@
           </span>
           <!-- <img :src="user_img" class="demo-avatar"> -->
         </header>
-        <div v-if="view !== ''" :is="'drawer' + view" :team="team" :parcerias="parcerias" :user_id="user_id"></div>
+        <div v-if="view !== ''" :is="'drawer' + view" :team="team" :parcerias="parcerias" :user_id="user_id" :parts="parts"></div>
       </div>
 
       <transition name="fade">
-        <router-view :parcerias="parcerias" :user_id="user_id"></router-view>
+        <router-view ref="view" :parcerias="parcerias" :user_id="user_id" v-on:parts-ok="partsOk"></router-view>
       </transition>
 
     </div>
@@ -60,11 +60,22 @@ export default {
       team: '580186d32c444276d6bc8b72',
       loged: false,
       view: '',
+      parts: [],
       parcerias: [],
       user_id: null,
       user_name: null,
       user_email: null,
       user_img: ''
+    }
+  },
+
+  watch: {
+    '$route' (to, from) {
+      if (to.params.id) {
+        this.view = 'parceria'
+      } else {
+        this.view = 'home'
+      }
     }
   },
 
@@ -106,6 +117,9 @@ export default {
         }
       }
       Trello.authorize(opt)
+    },
+    partsOk () {
+      this.parts = this.$refs.view.parts
     }
   },
 
