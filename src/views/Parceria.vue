@@ -5,6 +5,29 @@
         {{html}}
       </div>
     </div>
+    <div v-if="myCard === user_id" class="insert">
+      <button id="decision" class="decision mdl-color--cyan-500 mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+        <i class="material-icons">gavel</i>
+      </button>
+      <div class="mdl-tooltip" for="decision">
+        Adicionar Tomada de Decisão
+      </div>
+      <button id="map" class="map mdl-color--amber-500 mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+        <i class="material-icons">camera</i>
+      </button>
+      <div class="mdl-tooltip" for="map">
+        Adicionar Mapeamento 4D
+      </div>
+      <button id="user" class="user mdl-color--green-500 mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+        <i class="material-icons">person_add</i>
+      </button>
+      <div class="mdl-tooltip" for="user">
+        Adicionar Responsavel
+      </div>
+      <button class="primary mdl-color--purple-500 mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+        <i class="material-icons">add</i>
+      </button>
+    </div>
   </main>
 </template>
 
@@ -25,6 +48,14 @@ export default {
       html: '',
       index: 0,
       parts: []
+    }
+  },
+
+  computed: {
+    myCard: function () {
+      return _.find(this.parts[this.index].resp, (id) => {
+        return id === this.user_id
+      })
     }
   },
 
@@ -51,7 +82,8 @@ export default {
               let obj = {
                 name: data[i].name,
                 id: data[i].id,
-                desc: data[i].desc
+                desc: data[i].desc,
+                resp: data[i].idMembers
               }
               this.parts.push(obj)
             }
@@ -69,6 +101,38 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.insert {
+  transition: height .3s;
+  position: fixed;
+  bottom: 15px;
+  right: 50px;
+  height: 18px;
+  z-index: 5;
+  width: 56px;
+  &:hover {
+    height: 250px;
+  }
+  .primary {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  .user {
+    position: absolute;
+    right: 8px;
+    bottom: 28%;
+  }
+  .map {
+    position: absolute;
+    right: 8px;
+    bottom: 50%;
+  }
+  .decision {
+    position: absolute;
+    right: 8px;
+    bottom: 72%;
+  }
+}
 
 </style>
